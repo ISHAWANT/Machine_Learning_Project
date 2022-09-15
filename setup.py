@@ -1,3 +1,4 @@
+from gettext import install
 from setuptools import setup,find_packages
 from typing import List
 
@@ -33,3 +34,4 @@ install_requires=get_requirements_list()
 # check requirement code is working or not
 # if __name__=="__main__":
 #     print(get_requirements_list())
+

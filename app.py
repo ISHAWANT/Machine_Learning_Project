@@ -9,6 +9,7 @@ def index():
     try:
         raise Exception("We are testing custom exception")
     except Exception as e:
+        # raise HousingException(e,sys) from e(somw working line no. 12 and 13)
         housing = HousingException(e,sys) 
         logging.info(housing.error_message)
         logging.info("we are testing logging module")
@@ -17,6 +18,13 @@ def index():
 
 if __name__=="__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
 
 
 
