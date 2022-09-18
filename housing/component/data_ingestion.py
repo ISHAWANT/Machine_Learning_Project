@@ -1,6 +1,3 @@
-import imp
-
-from numpy.lib.shape_base import split
 from housing.entity.config_entity import DataIngestionConfig
 from housing.exception import HousingException
 import sys,os
@@ -26,7 +23,7 @@ class DataIngestion:
             #extract remote url to download dataset
             download_url = self.data_ingestion_config.dataset_download_url
             #folder location to download file
-            tgz_download_dir=self.data_ingestion_config.tgz_download_dir
+            tgz_download_dir = self.data_ingestion_config.tgz_download_dir
 
             if os.path.exists(tgz_download_dir):
                 os.remove(tgz_download_dir)
@@ -75,7 +72,7 @@ class DataIngestion:
             logging.info(f"Reading csv file: [{housing_file_path}]")
             housing_data_frame = pd.read_csv(housing_file_path)
 
-            housing_data_frame["income_cat"] = pd.cut(housing_data_frame["median_income"],bins=[0.0,1.5,3.0,4.5,6.0,np.inf],labels=[1,2,3,4,5])
+            housing_data_frame["income_cat"] = pd.cut(housing_data_frame["median_income"],bins=[0.0, 1.5, 3.0, 4.5, 6.0, np.inf],labels=[1,2,3,4,5])
 
             logging.info(f"Spliting data into train and test")
             strat_train_set = None
@@ -96,8 +93,8 @@ class DataIngestion:
 
             if strat_test_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir,exist_ok=True)
-                logging.info(f"Exporting training dataset to file: [{train_file_path}]")
-                strat_train_set.to_csv(test_file_path,index=False)
+                logging.info(f"Exporting training dataset to file: [{test_file_path}]")
+                strat_test_set.to_csv(test_file_path,index=False)
 
             data_ingestion_artifact = DataIngestionArtifact(train_file_path=train_file_path,test_file_path=test_file_path,is_ingested=True,message=f"Data ingestion successfully")
 

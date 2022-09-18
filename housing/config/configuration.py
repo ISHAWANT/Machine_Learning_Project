@@ -1,6 +1,3 @@
-
-from msilib.schema import Directory
-from multiprocessing.spawn import import_main_path
 from housing.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTraierConfig, ModelEvaluationConfig,ModelPusherConfig,TrainingPipelineConfig
 from housing.util.util import read_yaml_file
 from housing.logger import logging
@@ -28,9 +25,10 @@ class Configuration:
 
             data_ingestion_info = self.config_info[DATA_INGESTION_CONFIG_KEY]
 
-            dataset_download_url= data_ingestion_config[DATA_INGESTION_DOWNLOAD_URL_KEY]
-            tgz_download_dir= os.path.join(data_ingestion_artifact_dir,data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY])
+            dataset_download_url= data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
+            tgz_download_dir= os.path.join(data_ingestion_artifact_dir,data_ingestion_info[DATA_INGESTION_TGZ_DOWNLOAD_DIR_KEY]) #error was DATA_INGESTION_RAW_DATA_DIR_KEY
             raw_data_dir= os.path.join(data_ingestion_artifact_dir,data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY])
+            
             
             ingested_data_dir = os.path.join(data_ingestion_artifact_dir,data_ingestion_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY])
             ingested_train_dir= os.path.join(ingested_data_dir,data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY])
@@ -41,17 +39,19 @@ class Configuration:
                 tgz_download_dir=tgz_download_dir,
                 raw_data_dir=raw_data_dir,
                 ingested_train_dir=ingested_train_dir,
-                ingested_test_dir=ingested_test_dir
-
-            )
-            logging.info(f"Data Ingestion config: {data_ingestion_config} ")
+                ingested_test_dir=ingested_test_dir)
+            logging.info(f"Data Ingestion config: {data_ingestion_config}")
             return data_ingestion_config
         except Exception as e:
             raise HousingException(e,sys) from e
 
-
     def get_data_validation_config(self) ->DataValidationConfig:
-        pass
+        try:
+            schema_file_path = None
+            data_validation_config = DataValidationConfig(schema_file_path=schema_file_path)
+            return data_validation_config
+        except Exception as e:
+            raise HousingException(e,sys) from e
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
         pass
