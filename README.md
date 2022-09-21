@@ -90,3 +90,6 @@ Install ipynb kernal
 pip install ipykernal
 ```
 
+Data Drift:
+when your dataset stats gets changes we  call it as data drift
+
