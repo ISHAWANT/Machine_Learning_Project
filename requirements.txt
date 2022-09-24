@@ -5,4 +5,5 @@ pandas
 sklearn
 PyYAML
 evidently
+dill
 -e .
