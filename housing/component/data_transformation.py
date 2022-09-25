@@ -1,4 +1,6 @@
 import sys,os
+
+from sklearn import preprocessing
 from housing.exception import HousingException
 from housing.logger import logging
 from housing.entity.config_entity import  DataTransformationConfig
@@ -98,6 +100,36 @@ class DataTransformation:
             if len(error_message) >0:
                 raise Exception(error_message)
             return dataframe
+
+        except Exception as e:
+            raise HousingException(e,sys) from e
+
+    def get_data_transformer_oject(self)->ColumnTransformer:
+        try:
+            schema_file_path = self.data_validation_artifact.schema_file_path
+            dataset_schema = read_yaml_file(file_path=schema_file_path)
+            numerical_columns = dataset_schema[NUMERICAL_COLUMN_KEY]
+            categorical_columns = dataset_schema[CATEGORICAL_COLUMN_KEY]
+
+            num_pipeline = Pipeline(steps=[
+                ("imputer",SimpleImputer(strategy="median")),
+                ("feature_generator",FeatureGenerator(
+                    add_bedrooms_per_room=self.data_transformation_config.add_bedroom_per_room,columns=numerical_columns)),
+                ('scaler',StandardScaler())
+            ])
+
+            cat_pipeline = Pipeline(steps=[
+                ('impute',SimpleImputer(strategy='most_frequent')),
+                ('one_hot_encoder',OneHotEncoder()),
+                ('scaler',StandardScaler(with_mean=False))
+            ])
+
+            logging.info(f"Categorical columns: {categorical_columns}")
+            logging.info(f"Numerical columns: {numerical_columns}")
+
+            preprocessing = ColumnTransformer([('num_pipeline',num_pipeline,numerical_columns),('cat_pipeline',cat_pipeline,categorical_columns)])
+
+            return preprocessing
 
         except Exception as e:
             raise HousingException(e,sys) from e
