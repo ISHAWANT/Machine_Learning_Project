@@ -1,6 +1,6 @@
 from collections import namedtuple
 
-from housing.component.data_transformation import DataTransformation
+# from housing.component.data_transformation import DataTransformation
 
 # from housing.component.data_validation import DataValidation
 # from housing.component.data_validation import DataValidationArtifact

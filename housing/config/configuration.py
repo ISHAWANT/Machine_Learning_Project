@@ -79,13 +79,13 @@ class Configuration:
             transformed_train_dir = os.path.join(
                 data_transformation_artifact_dir,
                 data_transformation_config_info[DATA_TRANSFORMATION_DIR_NAME_KEY],
-                data_transformation_config_info[DATA_TRANSFORMATION_TRAIN_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TRAIN_DIR_NAME_KEY]
                 
             )
             transformed_test_dir = os.path.join(
                 data_transformation_artifact_dir,
                 data_transformation_config_info[DATA_TRANSFORMATION_DIR_NAME_KEY],
-                data_transformation_config_info[DATA_TRANSFORMATION_TRAIN_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TEST_DIR_NAME_KEY]
                 
             )
 

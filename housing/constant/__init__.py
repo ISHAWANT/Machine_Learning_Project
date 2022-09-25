@@ -2,7 +2,7 @@
 
 import os
 from datetime import datetime
-from tkinter import CURRENT
+
 
 ROOT_DIR = os.getcwd()  #to get current working directory
 

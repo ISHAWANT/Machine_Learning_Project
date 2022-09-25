@@ -1,7 +1,7 @@
 import sys,os
 from housing.exception import HousingException
 from housing.logger import logging
-from housing.entity.config_entity import DataIngestionConfig, DataTransformationConfig
+from housing.entity.config_entity import  DataTransformationConfig
 from housing.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 import numpy as np
 from sklearn.base import BaseEstimator,TransformerMixin
@@ -82,7 +82,7 @@ class DataTransformation:
             raise HousingException(e,sys) from e
 
     @staticmethod
-    def load_data(file_path:str,schema_file_path:str) ->pd.DataFrame:
+    def load_data(file_path:str,schema_file_path:str) -> pd.DataFrame:
         try:
             dataset_schema = read_yaml_file(schema_file_path)
             schema = dataset_schema[DATASET_SCHEMA_COLUMNS_KEY]
@@ -105,7 +105,6 @@ class DataTransformation:
 
 
 
-        except Exception as e:
-            raise HousingException(e,sys) from e
+     
 
 
