@@ -1,9 +1,10 @@
 numpy
 Flask
-gunicorn 
-pandas
+gunicorn
 sklearn
+pandas
 PyYAML
 evidently
 dill
+matplotlib
 -e .
